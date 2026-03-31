@@ -385,7 +385,7 @@ function initSupabaseUi() {
     refreshLeaderboard({ quiet: false })
   } else {
     elLeaderboardHint.innerHTML =
-      "Supabase를 쓰려면 <code>config.example.js</code>를 <code>config.js</code>로 복사하고 URL·anon key를 넣은 뒤 페이지를 새로고침하세요."
+      "Supabase를 쓰려면 <code>secrets.example.js</code>를 <code>secrets.js</code>로 복사하고 URL·anon public 키를 넣은 뒤 페이지를 새로고침하세요."
     elLeaderboardPanel.hidden = true
     elLeaderboardError.hidden = true
   }
