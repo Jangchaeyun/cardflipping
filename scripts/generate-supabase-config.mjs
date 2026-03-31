@@ -1,6 +1,6 @@
 /**
- * 빌드(Vercel 등): 환경 변수 SUPABASE_URL, SUPABASE_ANON_KEY 로 supabase-config.js 생성
- * 로컬: env가 비어 있고 supabase-config.js 가 있으면 덮어쓰지 않음
+ * 빌드(Vercel 등): 환경 변수로 public/supabase-config.js 생성 (배포 출력 루트)
+ * 로컬: env 비어 있고 public/supabase-config.js 가 있으면 덮어쓰지 않음
  */
 import fs from "node:fs"
 import path from "node:path"
@@ -8,7 +8,12 @@ import { fileURLToPath } from "node:url"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const root = path.join(__dirname, "..")
-const dest = path.join(root, "supabase-config.js")
+const publicDir = path.join(root, "public")
+const dest = path.join(publicDir, "supabase-config.js")
+
+if (!fs.existsSync(publicDir)) {
+  fs.mkdirSync(publicDir, { recursive: true })
+}
 
 const url = (process.env.SUPABASE_URL ?? "").trim()
 const key = (process.env.SUPABASE_ANON_KEY ?? "").trim()
@@ -24,11 +29,13 @@ if (onVercel && (!url || !key)) {
 
 if (!url || !key) {
   if (fs.existsSync(dest)) {
-    console.log("[generate-supabase-config] env 비어 있음 → 기존 supabase-config.js 유지 (로컬)")
+    console.log(
+      "[generate-supabase-config] env 비어 있음 → 기존 public/supabase-config.js 유지 (로컬)",
+    )
     process.exit(0)
   }
   console.warn(
-    "[generate-supabase-config] env 비어 있고 supabase-config.js 없음 → 빈 값으로 생성",
+    "[generate-supabase-config] env 비어 있고 public/supabase-config.js 없음 → 빈 값으로 생성",
   )
 }
 
@@ -38,4 +45,4 @@ const content =
   `export const SUPABASE_ANON_KEY = ${JSON.stringify(key)}\n`
 
 fs.writeFileSync(dest, content, "utf8")
-console.log("[generate-supabase-config] supabase-config.js 생성 완료")
+console.log("[generate-supabase-config] public/supabase-config.js 생성 완료")

@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "node scripts/generate-supabase-config.mjs",
-    "generate:supabase": "node scripts/generate-supabase-config.mjs"
+    "generate:supabase": "node scripts/generate-supabase-config.mjs",
+    "dev": "npx --yes serve public -p 3456"
   }
 }
