@@ -1,2 +1,2 @@
-# Supabase anon 키·프로젝트별 URL (로컬 전용)
-secrets.js
+# Supabase URL·anon (로컬·배포 생성물, 커밋 금지)
+supabase-config.js

@@ -1,0 +1,8 @@
+{
+  "name": "cardflipping",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/generate-supabase-config.mjs",
+    "generate:supabase": "node scripts/generate-supabase-config.mjs"
+  }
+}

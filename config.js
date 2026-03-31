@@ -1,11 +1,11 @@
 /**
- * 공개 저장소용 연결 레이어: 실제 키는 secrets.js 에만 있습니다.
+ * Supabase 연결 값은 supabase-config.js (Git 제외).
  *
- * 로컬/배포 서버에서 한 번 설정:
- *   secrets.example.js → secrets.js 로 복사 후 URL·anon 키 입력
+ * 로컬: supabase-config.example.js 를 supabase-config.js 로 복사 후 편집
+ * Vercel: Environment Variables 에 SUPABASE_URL, SUPABASE_ANON_KEY →
+ *         빌드 시 npm run build 가 supabase-config.js 를 생성
  *
- * anon 키는 클라이언트에 노출되지만, RLS로 권한을 제한해야 합니다.
- * service_role 키는 여기 넣지 마세요.
+ * anon 키는 브라우저에 포함됩니다. RLS 로 제한하세요. service_role 은 넣지 마세요.
  */
 
-export { SUPABASE_URL, SUPABASE_ANON_KEY } from "./secrets.js"
+export { SUPABASE_URL, SUPABASE_ANON_KEY } from "./supabase-config.js"
