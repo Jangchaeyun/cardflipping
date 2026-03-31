@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>카드 뒤집기 · Memory Match</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jua&family=Sora:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-effects" aria-hidden="true">
+      <div class="bg-blobs"></div>
+      <div class="bg-grid"></div>
+      <div class="bg-vignette"></div>
+    </div>
+
+    <div class="app">
+      <header class="header">
+        <p class="header-badge"><span class="badge-dot"></span> MEMORY MATCH</p>
+        <h1 class="game-title">카드 뒤집기</h1>
+        <p class="tagline">같은 그림을 찾아 전부 맞춰 보세요!</p>
+      </header>
+
+      <section class="hud" aria-live="polite">
+        <div class="hud-panel">
+          <div class="stat stat-time">
+            <span class="label">TIME</span>
+            <div class="stat-line">
+              <strong class="stat-value" id="timer">0</strong>
+              <span class="unit">sec</span>
+            </div>
+          </div>
+          <div class="stat stat-moves">
+            <span class="label">MOVES</span>
+            <strong class="stat-value" id="moves">0</strong>
+          </div>
+        </div>
+        <button type="button" class="btn btn-arcade secondary" id="btn-restart">다시 하기</button>
+      </section>
+
+      <div class="playfield">
+        <div class="board-wrap">
+          <div class="board-glow" aria-hidden="true"></div>
+          <div class="board-rim">
+            <div id="board" class="board" role="grid" aria-label="카드 보드"></div>
+          </div>
+        </div>
+      </div>
+
+      <section class="leaderboard-section" id="leaderboard-section" aria-labelledby="leaderboard-heading">
+        <div class="panel-arcade leaderboard-panel-outer">
+          <div class="panel-arcade-inner">
+            <div class="leaderboard-head">
+              <div class="leaderboard-titles">
+                <h2 id="leaderboard-heading">명예의 전당</h2>
+                <p class="leaderboard-sub">8쌍(4×4) · 이동 적을수록, 같으면 시간 짧은 순</p>
+              </div>
+              <button
+                type="button"
+                class="btn btn-arcade secondary btn-refresh"
+                id="btn-refresh-leaderboard"
+                title="목록 새로고침"
+                aria-label="리더보드 새로고침"
+              >
+                새로고침
+              </button>
+            </div>
+            <p id="leaderboard-hint" class="hint">
+              Supabase 연결 후 순위가 표시됩니다. <code>config.js</code>를 확인하세요.
+            </p>
+            <p id="leaderboard-error" class="leaderboard-error" hidden></p>
+            <div id="leaderboard-panel" class="leaderboard-panel" hidden>
+              <div class="leaderboard-thead" aria-hidden="true">
+                <span class="col-rank">순위</span>
+                <span class="col-name">닉네임</span>
+                <span class="col-score">기록</span>
+                <span class="col-date">기록일</span>
+              </div>
+              <ol id="leaderboard" class="leaderboard"></ol>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay" hidden>
+      <div class="modal modal-arcade" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-confetti" aria-hidden="true"></div>
+        <h2 id="modal-title" class="modal-title-win">클리어!</h2>
+        <p class="modal-stats">
+          시간 <strong id="modal-time">0</strong>초 · 이동 <strong id="modal-moves">0</strong>회
+        </p>
+        <label class="field">
+          <span>닉네임</span>
+          <input
+            id="player-name"
+            type="text"
+            maxlength="32"
+            placeholder="1~32자"
+            autocomplete="nickname"
+          />
+        </label>
+        <p id="submit-error" class="error" hidden></p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-arcade primary" id="btn-submit-score">기록 남기기</button>
+          <button type="button" class="btn btn-arcade secondary" id="btn-skip-submit">건너뛰기</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="game.js"></script>
+  </body>
+</html>
